@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>.:: CESAR FREIRE ::.</title>
+<!-- <link rel="stylesheet" type="text/css" href="style.css"/> -->
+<script type='text/javascript' src='mosquitto.js'></script>
+<script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
+</head>
+<body>
+<div id="publish">
+    <br>
+	<font color="#3D3D3F"><b>1º passo:</b></font> definir os tópicos MQTT de subscribe e publish:
+	<br>	
+</div>	 
+	
+<div id="broker">
+	<font color="#3D3D3F"><b>2º Passo:</b></font> conectar-se ao servidor / broker:<br><br>
+	<input class="but" id="connect-button" type="button" value="Conectar">
+</div>
+<br><br>
+
+
+<p><font color="#3D3D3F"><b>Status do output (vindos do NodeMCU via MQTT):</b></font></p>
+<div id="temperatura"></div>
+<br>
+<div id="humidade"></div>
+
+<p><b>Debug / respostas do servidor:</b></p>
+<div id="debug"></div>
+    
+	<script src="tmo.js" type="text/javascript"></script>
+	</center>
+</body>
+</html>

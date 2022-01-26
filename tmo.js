@@ -1,3 +1,6 @@
+var humidade = '';
+var temperatura = '';
+
 (function() {
 	window.Main = {};
 	Main.Page = (function() {
@@ -5,58 +8,47 @@
 		function Page() {
 			var _this = this;
 			mosq = new Mosquitto();
-			$('#connect-button').click(function() {
+			window.onload = function() {
 				return _this.connect();
-			});
-			$('#subscribe-button').click(function() {
-				return _this.subscribe();
-			});
+			};
 
 			mosq.onconnect = function(rc){
 				var p = document.createElement("p");
-				var topic = "cesarfreire/temperatura";
+				var topic1 = "cesarfreire/temperatura";
+				//var topic2 = "cesarfreire/humidade";
 				p.innerHTML = "Conectado ao Broker!";
 				$("#debug").append(p);
-				mosq.subscribe(topic, 0);
-				mosq.subscribe('cesarfreire/humidade', 0);
+				mosq.subscribe(topic1, 0);
+				//mosq.subscribe(topic2, 0);
 			};
 			mosq.ondisconnect = function(rc){
 				var p = document.createElement("p");
-				var url = "ws://mqtt.aventurismo.com.br:9001";
+				var url = "ws://3.88.210.36:9001";
 				
 				p.innerHTML = "A conexão com o broker foi perdida";
 				$("#debug").append(p);				
 				mosq.connect(url);
 			};
 			mosq.onmessage = function(topic, payload, qos){
-
-				if (topic === 'cesarfreire/temperatura')
-					var p = document.createElement("p");
-					var zero = payload[0];
-					var um = payload[1];
-					var dois = payload[2];
-					var tres = payload[3];
-					var quatro = payload[4];
-					var final = "";
-
-					//escreve o estado do output conforme informação recebida
-					p.innerHTML = final.concat(zero,um,dois,tres,quatro);
-					$("#temperatura").html(p);
-				
-				if (topic === 'cesarfreire/humidade')
-					var p = document.createElement("p");
-					var dez = payload[0];
-					p.innerHTML = dez;
-					$("#humidade").html(p);
+				var p = document.createElement("p");
+				var barra_progresso = document.getElementById("barra_progresso")
+				//escreve o estado do output conforme informação recebida
+				var barra_value = payload[0] + payload[1];
+				p.innerHTML = payload;
+				barra_progresso.setAttribute("aria-valuenow", barra_value);
+				barra_progresso.value = barra_value + "%";
+				$("#temperatura").html(p);	
 			};
 		}
 		Page.prototype.connect = function(){
-			var url = "ws://mqtt.aventurismo.com.br:9001";
+			var url = "ws://3.88.210.36:9001";
 			mosq.connect(url);
 		};
 		Page.prototype.subscribe = function(){
-			var topic = 'cesarfreire/temperatura';
-			mosq.subscribe(topic, 0);
+			var topic1 = 'cesarfreire/temperatura';
+			//var topic2 = 'cesarfreire/humidade';
+			mosq.subscribe(topic1, 0);
+			//mosq.subscribe(topic2, 0);
 		};
 
 		return Page;

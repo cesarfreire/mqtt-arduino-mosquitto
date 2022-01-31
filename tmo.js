@@ -1,6 +1,3 @@
-var humidade = '';
-var temperatura = '';
-
 (function() {
 	window.Main = {};
 	Main.Page = (function() {
@@ -35,8 +32,6 @@ var temperatura = '';
 				//escreve o estado do output conforme informação recebida
 				var barra_value = payload[0] + payload[1];
 				p.innerHTML = payload;
-				barra_progresso.setAttribute("aria-valuenow", barra_value);
-				barra_progresso.value = barra_value + "%";
 				$("#temperatura").html(p);	
 			};
 		}
